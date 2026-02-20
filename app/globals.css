@@ -1,0 +1,125 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #fff5ec, #ffffff);
+  color: #1d1d1d;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.eyebrow {
+  color: #c15e00;
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+
+h1,
+h2 {
+  margin: 0 0 10px;
+}
+
+.subtitle,
+.description {
+  margin: 0;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+input {
+  border: 1px solid #d5d5d5;
+  border-radius: 10px;
+  height: 42px;
+  padding: 0 12px;
+  font-size: 15px;
+}
+
+.checkbox {
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.checkbox input {
+  height: 18px;
+  margin-top: 2px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  background: #c15e00;
+  color: white;
+  height: 44px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.error {
+  color: #b00020;
+  margin: 0;
+}
+
+.hint {
+  color: #6f6f6f;
+  margin: 0;
+  font-size: 14px;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.modal {
+  width: min(420px, 100%);
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+  text-align: center;
+}
+
+.contacts p {
+  margin: 0;
+}
