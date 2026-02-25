@@ -33,6 +33,30 @@ npm run dev
 
 Откройте: `http://localhost:3000`
 
+## Настройка Vercel Environment Variables
+
+Добавьте в **Project Settings → Environment Variables**:
+
+- `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
+- `RECAPTCHA_SECRET_KEY`
+- `GOOGLE_SHEET_ID`
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL` (значение `client_email` из JSON service account)
+- `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` (значение `private_key` из JSON service account, в одну строку с `\n`)
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`
+
+### Как заполнить из вашего service account JSON
+
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL` = поле `client_email`
+- `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` = поле `private_key`
+
+Пример формата ключа в ENV:
+
+```text
+-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n
+```
+
+> Важно: не коммитьте реальные ключи в репозиторий. Если ключи уже были опубликованы, нужно срочно перевыпустить ключ service account и reCAPTCHA secret.
+
 ## Настройка Google Sheets (бесплатно)
 
 1. Создайте Google Sheet и лист `Заявки`.
@@ -48,7 +72,7 @@ npm run dev
 ## Настройка reCAPTCHA (бесплатно)
 
 1. Создайте reCAPTCHA site key/secret key на Google reCAPTCHA.
-2. Добавьте в `.env.local`:
+2. Добавьте в `.env.local` или Vercel ENV:
    - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
    - `RECAPTCHA_SECRET_KEY`
 
@@ -64,8 +88,38 @@ npm run dev
    - `SMTP_PASS=<app-password>`
    - `SMTP_FROM="Осень для танцев <your@gmail.com>"`
 
+## Если в PR конфликт в `package.json`
+
+В ветке с PR выполните:
+
+```bash
+git fetch origin
+git merge origin/main
+```
+
+Разрешите конфликт в `package.json` и убедитесь, что в `devDependencies` есть:
+
+```json
+"@types/nodemailer": "^6.4.17"
+```
+
+Потом:
+
+```bash
+git add package.json
+git commit -m "Resolve package.json conflict with main"
+git push
+```
+
+## Ошибки Vercel из лога
+
+- `deprecated` предупреждения не блокируют сборку.
+- Критичная ошибка была:
+  - `Could not find a declaration file for module 'nodemailer'`
+- Фикс уже добавлен: `@types/nodemailer` в `devDependencies`.
+
 ## Деплой на Vercel
 
 1. Импортируйте репозиторий в Vercel.
 2. Добавьте все переменные окружения из `.env.example` в Project Settings → Environment Variables.
-3. Deploy.
+3. Redeploy.
