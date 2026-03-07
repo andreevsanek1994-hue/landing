@@ -33,6 +33,7 @@ npm run dev
 
 Откройте: `http://localhost:3000`
 
+
 ## Настройка Vercel Environment Variables
 
 Добавьте в **Project Settings → Environment Variables**:
@@ -57,6 +58,7 @@ npm run dev
 
 > Важно: не коммитьте реальные ключи в репозиторий. Если ключи уже были опубликованы, нужно срочно перевыпустить ключ service account и reCAPTCHA secret.
 
+
 ## Настройка Google Sheets (бесплатно)
 
 1. Создайте Google Sheet и лист `Заявки`.
@@ -72,7 +74,11 @@ npm run dev
 ## Настройка reCAPTCHA (бесплатно)
 
 1. Создайте reCAPTCHA site key/secret key на Google reCAPTCHA.
+
 2. Добавьте в `.env.local` или Vercel ENV:
+
+2. Добавьте в `.env.local`:
+
    - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
    - `RECAPTCHA_SECRET_KEY`
 
@@ -88,6 +94,7 @@ npm run dev
    - `SMTP_PASS=<app-password>`
    - `SMTP_FROM="Осень для танцев <your@gmail.com>"`
 
+
 ## Если в PR конфликт в `package.json`
 
 В ветке с PR выполните:
@@ -98,7 +105,6 @@ git merge origin/main
 ```
 
 Разрешите конфликт в `package.json` и убедитесь, что в `devDependencies` есть:
-
 ```json
 "@types/nodemailer": "^6.4.17"
 ```
@@ -122,4 +128,8 @@ git push
 
 1. Импортируйте репозиторий в Vercel.
 2. Добавьте все переменные окружения из `.env.example` в Project Settings → Environment Variables.
+
 3. Redeploy.
+
+3. Deploy.
+
