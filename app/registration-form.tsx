@@ -31,6 +31,7 @@ export default function RegistrationForm() {
 
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim();
   const recaptchaEnabled = process.env.NEXT_PUBLIC_ENABLE_RECAPTCHA === "true" && Boolean(siteKey);
+  const recaptchaSiteKey = siteKey ?? "";
 
   const validateClient = () => {
     if (form.troupeName.trim().length < 2) return "Введите название коллектива.";
@@ -157,7 +158,7 @@ export default function RegistrationForm() {
         {recaptchaEnabled ? (
           <ReCAPTCHA
             ref={captchaRef}
-            sitekey={siteKey}
+            sitekey={recaptchaSiteKey}
             onChange={(token) => {
               setRecaptchaToken(token);
               if (token) setError("");
