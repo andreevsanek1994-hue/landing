@@ -30,6 +30,7 @@ export default function RegistrationForm() {
   const captchaRef = useRef<ReCAPTCHA>(null);
 
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim();
+  const recaptchaEnabled = process.env.NEXT_PUBLIC_ENABLE_RECAPTCHA === "true" && Boolean(siteKey);
 
   const validateClient = () => {
     if (form.troupeName.trim().length < 2) return "Введите название коллектива.";
@@ -46,7 +47,7 @@ export default function RegistrationForm() {
     if (!form.consent) {
       return "Необходимо согласие на обработку персональных данных.";
     }
-    if (!recaptchaToken) {
+    if (recaptchaEnabled && !recaptchaToken) {
       return "Подтвердите, что вы не робот.";
     }
     return "";
@@ -153,7 +154,7 @@ export default function RegistrationForm() {
           Я согласен(а) на обработку персональных данных
         </label>
 
-        {siteKey ? (
+        {recaptchaEnabled ? (
           <ReCAPTCHA
             ref={captchaRef}
             sitekey={siteKey}
@@ -169,7 +170,7 @@ export default function RegistrationForm() {
             onExpired={() => setRecaptchaToken(null)}
           />
         ) : (
-          <p className="hint">Добавьте NEXT_PUBLIC_RECAPTCHA_SITE_KEY в .env.local (локально) или в Vercel Environment Variables.</p>
+          <p className="hint">reCAPTCHA сейчас отключена. Для включения задайте NEXT_PUBLIC_ENABLE_RECAPTCHA=true и NEXT_PUBLIC_RECAPTCHA_SITE_KEY.</p>
         )}
 
         {error && <p className="error">{error}</p>}

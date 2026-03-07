@@ -72,7 +72,9 @@ npm run dev
 ## Настройка reCAPTCHA (бесплатно)
 
 1. Создайте reCAPTCHA site key/secret key на Google reCAPTCHA.
-2. Добавьте в `.env.local` или Vercel ENV:
+2. По умолчанию reCAPTCHA отключена. Для включения задайте в `.env.local` или Vercel ENV:
+   - `NEXT_PUBLIC_ENABLE_RECAPTCHA=true`
+   - `ENABLE_RECAPTCHA=true`
    - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
    - `RECAPTCHA_SECRET_KEY`
 

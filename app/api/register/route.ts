@@ -16,9 +16,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const isHuman = await verifyRecaptchaToken(parsed.data.recaptchaToken);
-    if (!isHuman) {
-      return NextResponse.json({ error: "Проверка reCAPTCHA не пройдена." }, { status: 400 });
+    const recaptchaEnabled = process.env.ENABLE_RECAPTCHA === "true";
+
+    if (recaptchaEnabled) {
+      if (!parsed.data.recaptchaToken) {
+        return NextResponse.json({ error: "Подтвердите, что вы не робот." }, { status: 400 });
+      }
+
+      const isHuman = await verifyRecaptchaToken(parsed.data.recaptchaToken);
+      if (!isHuman) {
+        return NextResponse.json({ error: "Проверка reCAPTCHA не пройдена." }, { status: 400 });
+      }
     }
 
     await saveRegistrationToGoogleSheets(parsed.data);
