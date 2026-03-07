@@ -29,7 +29,9 @@ export default function RegistrationForm() {
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const captchaRef = useRef<ReCAPTCHA>(null);
 
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim();
+  const siteKey = (
+    process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? process.env.RECAPTCHA_SITE_KEY
+  )?.trim();
 
   const validateClient = () => {
     if (form.troupeName.trim().length < 2) return "Введите название коллектива.";
