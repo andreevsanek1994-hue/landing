@@ -29,9 +29,7 @@ export default function RegistrationForm() {
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const captchaRef = useRef<ReCAPTCHA>(null);
 
-  const siteKey = (
-    process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? process.env.RECAPTCHA_SITE_KEY
-  )?.trim();
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim();
 
   const validateClient = () => {
     if (form.troupeName.trim().length < 2) return "Введите название коллектива.";
@@ -171,7 +169,7 @@ export default function RegistrationForm() {
             onExpired={() => setRecaptchaToken(null)}
           />
         ) : (
-          <p className="hint">Добавьте NEXT_PUBLIC_RECAPTCHA_SITE_KEY в .env.local</p>
+          <p className="hint">Добавьте NEXT_PUBLIC_RECAPTCHA_SITE_KEY в .env.local (локально) или в Vercel Environment Variables.</p>
         )}
 
         {error && <p className="error">{error}</p>}
