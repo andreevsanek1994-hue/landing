@@ -19,7 +19,7 @@ export const registrationSchema = z.object({
   consent: z.literal(true, {
     errorMap: () => ({ message: "Нужно согласие на обработку персональных данных." })
   }),
-  recaptchaToken: z.string().optional()
+  recaptchaToken: z.string().nullish()
 });
 
 export type RegistrationInput = z.infer<typeof registrationSchema>;

@@ -75,7 +75,7 @@ export default function RegistrationForm() {
         body: JSON.stringify({
           ...form,
           participantsCount: Number(form.participantsCount),
-          recaptchaToken
+          recaptchaToken: recaptchaToken ?? undefined
         })
       });
 
