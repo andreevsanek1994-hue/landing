@@ -30,7 +30,12 @@ export async function POST(request: NextRequest) {
     }
 
     await saveRegistrationToGoogleSheets(parsed.data);
-    await sendRegistrationEmail(parsed.data);
+
+    try {
+      await sendRegistrationEmail(parsed.data);
+    } catch (emailError) {
+      console.error("Не удалось отправить email подтверждение", emailError);
+    }
 
     return NextResponse.json({ ok: true });
   } catch (error) {
