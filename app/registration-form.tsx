@@ -30,7 +30,7 @@ export default function RegistrationForm() {
   const captchaRef = useRef<ReCAPTCHA>(null);
 
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim();
-  const recaptchaEnabled = process.env.NEXT_PUBLIC_ENABLE_RECAPTCHA === "true" && Boolean(siteKey);
+  const recaptchaEnabled = Boolean(siteKey);
   const recaptchaSiteKey = siteKey ?? "";
 
   const validateClient = () => {
@@ -171,7 +171,7 @@ export default function RegistrationForm() {
             onExpired={() => setRecaptchaToken(null)}
           />
         ) : (
-          <p className="hint">reCAPTCHA сейчас отключена. Для включения задайте NEXT_PUBLIC_ENABLE_RECAPTCHA=true и NEXT_PUBLIC_RECAPTCHA_SITE_KEY.</p>
+          <p className="hint">Добавьте NEXT_PUBLIC_RECAPTCHA_SITE_KEY в .env.local или Vercel Environment Variables.</p>
         )}
 
         {error && <p className="error">{error}</p>}

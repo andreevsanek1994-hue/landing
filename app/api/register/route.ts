@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const recaptchaEnabled = process.env.ENABLE_RECAPTCHA === "true";
+    const recaptchaEnabled = Boolean(process.env.RECAPTCHA_SECRET_KEY);
 
     if (recaptchaEnabled) {
       if (!parsed.data.recaptchaToken) {
