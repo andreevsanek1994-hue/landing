@@ -64,15 +64,16 @@ input {
 }
 
 .checkbox {
-  grid-template-columns: 20px 1fr;
-  align-items: start;
+  display: flex;
+  align-items: center;
   gap: 8px;
   font-weight: 500;
 }
 
 .checkbox input {
   height: 18px;
-  margin-top: 2px;
+  width: 18px;
+  flex-shrink: 0;
 }
 
 button {
@@ -122,4 +123,17 @@ button:disabled {
 
 .contacts p {
   margin: 0;
+}
+
+.checkbox a {
+  color: #c15e00;
+  text-decoration: underline;
+}
+
+.card ul {
+  padding-left: 20px;
+}
+
+.card h2 {
+  margin-top: 20px;
 }
