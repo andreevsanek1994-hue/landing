@@ -2,6 +2,7 @@
 
 import { FormEvent, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { IMaskInput } from "react-imask";
 
 type FormState = {
   troupeName: string;
@@ -14,12 +15,12 @@ type FormState = {
 const initialState: FormState = {
   troupeName: "",
   participantsCount: "",
-  phone: "+7",
+  phone: "",
   email: "",
   consent: false
 };
 
-const phoneRegex = /^\+7\d{10}$/;
+const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
 
 export default function RegistrationForm() {
   const [form, setForm] = useState<FormState>(initialState);
@@ -38,7 +39,7 @@ export default function RegistrationForm() {
       return "Количество человек: целое число от 1 до 200.";
     }
     if (!phoneRegex.test(form.phone.trim())) {
-      return "Телефон должен быть в формате +7XXXXXXXXXX.";
+      return "Введите номер телефона полностью.";
     }
     if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) {
       return "Введите корректный email.";
@@ -124,12 +125,14 @@ export default function RegistrationForm() {
 
         <label>
           Телефон
-          <input
+          <IMaskInput
+            mask="+7 (000) 000-00-00"
+            value={form.phone}
+            unmask={false}
+            onAccept={(value: string) => setForm((prev) => ({ ...prev, phone: value }))}
+            placeholder="+7 (___) ___-__-__"
             required
             type="tel"
-            placeholder="+79991234567"
-            value={form.phone}
-            onChange={(event) => setForm((prev) => ({ ...prev, phone: event.target.value }))}
           />
         </label>
 
@@ -150,7 +153,7 @@ export default function RegistrationForm() {
             checked={form.consent}
             onChange={(event) => setForm((prev) => ({ ...prev, consent: event.target.checked }))}
           />
-          Я согласен(а) на обработку персональных данных
+          Я согласен(а) на <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">обработку персональных данных</a>
         </label>
 
         {siteKey ? (

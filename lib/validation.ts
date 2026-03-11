@@ -14,7 +14,8 @@ export const registrationSchema = z.object({
   phone: z
     .string()
     .trim()
-    .regex(/^\+7\d{10}$/, "Телефон должен быть в формате +7XXXXXXXXXX."),
+    .transform((v) => v.replace(/[\s()-]/g, ""))
+    .pipe(z.string().regex(/^\+7\d{10}$/, "Телефон должен быть в формате +7XXXXXXXXXX.")),
   email: z.string().trim().email("Укажите корректный email."),
   consent: z.literal(true, {
     errorMap: () => ({ message: "Нужно согласие на обработку персональных данных." })
